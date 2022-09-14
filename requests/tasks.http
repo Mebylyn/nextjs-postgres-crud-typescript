@@ -1,0 +1,36 @@
+@api = http://127.0.0.1:9000/assets/
+
+### Get all tasks
+GET {{api}}
+
+### Create a task
+POST {{api}}
+Content-Type: application/json
+
+{
+    "assetName": "",
+    "assetCategory": "",
+    "assetDetails": "",
+    "assetQuantity": "",
+    "assetPrice": "",
+    "assetTotal": ""
+}
+
+### GET single task
+GET {{api}}/1
+
+### Updating single task
+PUT {{api}}/1
+Content-Type: application/json
+
+{
+    "assetName": "",
+    "assetCategory": "",
+    "assetDetails": "",
+    "assetQuantity": "",
+    "assetPrice": "",
+    "assetTotal": ""
+}
+
+### Deleting single task
+DELETE {{api}}/1
