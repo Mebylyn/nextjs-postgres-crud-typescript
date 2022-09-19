@@ -9,11 +9,7 @@ export const Layout = ({
   return (
     <div>
       <Navbar />
-      <main
-        style={{
-          backgroundColor: "#212121",
-        }}
-      >
+      <main>
         <Container
           style={{
             paddingTop: "2rem",

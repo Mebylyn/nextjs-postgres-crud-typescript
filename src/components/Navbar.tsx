@@ -6,15 +6,16 @@ export const Navbar = () => {
   const router = useRouter();
 
   return (
-    <Menu inverted attached style={{ padding: "1.5rem" }}>
+    <Menu inverted attached>
       <Container>
         <Menu.Item onClick={() => router.push("/")}>
           <Image
-            width="30"
-            height="30"
-            src="https://react.semantic-ui.com/logo.png"
+            width="50"
+            height="50"
+            src="/logo.png"
             alt="nextjs logo"
           />
+          <h1> IT Asset Management </h1>
         </Menu.Item>
 
         <Menu.Menu position="right">

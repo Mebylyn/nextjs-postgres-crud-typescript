@@ -5,6 +5,7 @@ import { BiTaskX } from "react-icons/bi";
 import { AssetList } from "src/components/assets/AssetList";
 import { useRouter } from "next/router";
 import { Asset } from "src/interfaces/Assets";
+import Head from "next/head"
 
 interface Props {
   assets: Asset[];
@@ -15,6 +16,11 @@ const Home = ({ assets }: Props) => {
 
   return (
     <Layout>
+          <Head>
+          <title>IT Asset Management</title>
+          <meta name="description" content="Managing Asset" />
+          <link rel="icon" href="/logo.png" />
+          </Head>
       {assets.length === 0 ? (
         <Grid
           columns={3}
