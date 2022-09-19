@@ -19,23 +19,17 @@ export const AssetList = ({ assets = [] }: Props) => {
           <th>Quantity</th>
           <th>Price</th>
           <th>Total</th>
-          <th>Action</th>
         </tr>
       </thead>
       {assets.map((asset) => (
-      <tbody>
+      <tbody onClick={() => router.push(`/assets/edit/${asset.id}`)}
+              key={asset.id}>
         <tr>
           <td>{asset.assetName}</td>
           <td>{asset.assetCategory}</td>
           <td>{asset.assetQuantity}</td>
           <td>{asset.assetPrice}</td>
           <td>{asset.assetTotal}</td>
-          <td>
-            <Button onClick={() => router.push(`/assets/edit/${asset.id}`)}
-                    key={asset.id} primary>
-              View
-            </Button>
-          </td>
         </tr>
       </tbody>
       ))}

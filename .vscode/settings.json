@@ -1,3 +1,9 @@
 {
-    "git.enabled": true
+    "git.enabled": true,
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/58886f27-fc33-43f8-8fe7-9dbc09c84aeb/AppServices/subscriptions/58886f27-fc33-43f8-8fe7-9dbc09c84aeb/resourceGroups/rg-nextjsrubianes/providers/Microsoft.Web/sites/itassetmanagementMBR",
+    "appService.deploySubpath": "."
 }
