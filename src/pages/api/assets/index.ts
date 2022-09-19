@@ -8,7 +8,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case "GET":
       try {
-        const query = "SELECT * FROM tasks";
+        const query = "SELECT * FROM assets";
         const response = await conn.query(query);
         return res.json(response.rows);
       } catch (error: any) {
@@ -24,7 +24,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
                 assetTotal } = body;
 
         const query =
-          "INSERT INTO tasks(assetName, assetCategory, assetDetails, assetQuantity, assetPrice, assetTotal) VALUES ($1, $2) RETURNING *";
+          "INSERT INTO assets(assetName, assetCategory, assetDetails, assetQuantity, assetPrice, assetTotal) VALUES ($1, $2) RETURNING *";
         const values = [assetName,
                         assetCategory,
                         assetDetails,

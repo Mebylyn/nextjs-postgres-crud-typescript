@@ -2,20 +2,20 @@ import { GetServerSideProps } from "next";
 import { Button, Grid } from "semantic-ui-react";
 import { Layout } from "src/components/Layout";
 import { BiTaskX } from "react-icons/bi";
-import { TaskList } from "src/components/tasks/TaskList";
+import { AssetList } from "src/components/assets/AssetList";
 import { useRouter } from "next/router";
-import { Task } from "src/interfaces/Tasks";
+import { Asset } from "src/interfaces/Assets";
 
 interface Props {
-  tasks: Task[];
+  assets: Asset[];
 }
 
-const Home = ({ tasks }: Props) => {
+const Home = ({ assets }: Props) => {
   const { push } = useRouter();
 
   return (
     <Layout>
-      {tasks.length === 0 ? (
+      {assets.length === 0 ? (
         <Grid
           columns={3}
           centered
@@ -27,24 +27,24 @@ const Home = ({ tasks }: Props) => {
               <div style={{ color: "#eee", textAlign: "center" }}>
                 <BiTaskX size="15rem" />
                 <h1>No tasks yet</h1>
-                <Button onClick={() => push("/tasks/new")}>Create one</Button>
+                <Button onClick={() => push("/assets/new")}>Create one</Button>
               </div>
             </Grid.Column>
           </Grid.Row>
         </Grid>
       ) : (
-        <TaskList tasks={tasks} />
+        <AssetList assets={assets} />
       )}
     </Layout>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch("http://127.0.0.1:9000/assets/");
-  const tasks = await res.json();
+  const res = await fetch("https://assetapirubianes.azurewebsites.net/assets/");
+  const assets = await res.json();
 
   return {
-    props: { tasks },
+    props: { assets },
   };
 };
 

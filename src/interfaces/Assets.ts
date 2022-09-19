@@ -1,4 +1,4 @@
-export interface Task {
+export interface Asset {
   id?: string;
   assetName: string;
   assetCategory: string;

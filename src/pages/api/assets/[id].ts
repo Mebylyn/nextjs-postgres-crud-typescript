@@ -12,12 +12,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       try {
-        const text = "SELECT * FROM tasks WHERE id = $1";
+        const text = "SELECT * FROM assets WHERE id = $1";
         const values = [id];
         const result = await conn.query(text, values);
 
         if (result.rowCount === 0)
-          return res.status(404).json({ message: "Task Not Found" });
+          return res.status(404).json({ message: "Asset Not Found" });
 
         return res.json(result.rows[0]);
       } catch (error: any) {
@@ -32,7 +32,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 assetPrice,
                 assetTotal } = body;
         const text =
-          "UPDATE tasks SET assetName = $1, assetCategory = $2, assetDetails = $3, assetQuantity = $4, assetPrice = $5, assetTotal = $6 WHERE id = $3 RETURNING *";
+          "UPDATE assets SET assetName = $1, assetCategory = $2, assetDetails = $3, assetQuantity = $4, assetPrice = $5, assetTotal = $6 WHERE id = $3 RETURNING *";
         const values = [assetName,
                         assetCategory,
                         assetDetails,
@@ -46,12 +46,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
     case "DELETE":
       try {
-        const text = "DELETE FROM tasks WHERE id = $1 RETURNING *";
+        const text = "DELETE FROM assets WHERE id = $1 RETURNING *";
         const values = [id];
         const result = await conn.query(text, values);
 
         if (result.rowCount === 0)
-          return res.status(404).json({ message: "Task Not Found" });
+          return res.status(404).json({ message: "Asset Not Found" });
 
         return res.json(result.rows[0]);
       } catch (error: any) {

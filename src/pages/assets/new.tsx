@@ -2,7 +2,7 @@ import { Layout } from "src/components/Layout";
 import { Card, Form, Grid, Button, Icon, Confirm } from "semantic-ui-react";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Task } from "src/interfaces/Tasks";
+import { Asset } from "src/interfaces/Assets";
 
 type ChangeInputHandler = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
@@ -16,24 +16,24 @@ const inititalState = {
 };
 
 const NewPage = (): JSX.Element => {
-  const [task, setTask] = useState<Task>(inititalState);
+  const [asset, setAsset] = useState<Asset>(inititalState);
   const [loading, setLoading] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
   const router = useRouter();
 
-  const createTask = async (task: Task) =>
-    await fetch("http://127.0.0.1:9000/assets/", {
+  const createAsset = async (asset: Asset) =>
+    await fetch("https://assetapirubianes.azurewebsites.net/assets/", {
       method: "POST",
-      body: JSON.stringify(task),
+      body: JSON.stringify(asset),
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-  const updateTask = async (id: string, task: Task) =>
-    await fetch("http://127.0.0.1:9000/assets/" + id, {
+  const updateAsset = async (id: string, asset: Asset) =>
+    await fetch("https://assetapirubianes.azurewebsites.net/assets/" + id, {
       method: "PUT",
-      body: JSON.stringify(task),
+      body: JSON.stringify(asset),
       headers: {
         "Content-Type": "application/json",
       },
@@ -45,11 +45,11 @@ const NewPage = (): JSX.Element => {
     setLoading(true);
     try {
       if (typeof router.query.id === "string") {
-        updateTask(router.query.id, task);
+        updateAsset(router.query.id, asset);
       } else {
-        createTask(task);
+        createAsset(asset);
       }
-      setTask(inititalState);
+      setAsset(inititalState);
       router.push("/");
     } catch (error) {
       console.log(error);
@@ -58,23 +58,23 @@ const NewPage = (): JSX.Element => {
   };
 
   const handleChange = ({ target: { name, value } }: ChangeInputHandler) =>
-    setTask({ ...task, [name]: value });
+    setAsset({ ...asset, [name]: value });
 
-  const loadTask = async (id: string) => {
-    const res = await fetch("http://127.0.0.1:9000/assets/" + id);
-    const task = await res.json();
-    setTask({ 
-              assetName: task.assetName,
-              assetCategory: task.assetCategory,
-              assetDetails: task.assetDetails,
-              assetQuantity: task.assetQuantity,
-              assetPrice: task.assetPrice,
-              assetTotal: task.assetTotal });
+  const loadAsset = async (id: string) => {
+    const res = await fetch("https://assetapirubianes.azurewebsites.net/assets/" + id);
+    const asset = await res.json();
+    setAsset({ 
+              assetName: asset.assetName,
+              assetCategory: asset.assetCategory,
+              assetDetails: asset.assetDetails,
+              assetQuantity: asset.assetQuantity,
+              assetPrice: asset.assetPrice,
+              assetTotal: asset.assetTotal });
   };
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await fetch("http://127.0.0.1:9000/assets/" + id, {
+      const res = await fetch("https://assetapirubianes.azurewebsites.net/assets/" + id, {
         method: "DELETE",
       });
       router.push("/");
@@ -84,7 +84,7 @@ const NewPage = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (typeof router.query.id === "string") loadTask(router.query.id);
+    if (typeof router.query.id === "string") loadAsset(router.query.id);
   }, [router.query]);
 
   return (
@@ -106,7 +106,7 @@ const NewPage = (): JSX.Element => {
                     placeholder="Write Asset Name"
                     name="assetName"
                     onChange={handleChange}
-                    value={task.assetName}
+                    value={asset.assetName}
                     autoFocus
                   />
                 </Form.Field>
@@ -118,7 +118,7 @@ const NewPage = (): JSX.Element => {
                     rows={2}
                     placeholder="Write a Description"
                     onChange={handleChange}
-                    value={task.assetCategory}
+                    value={asset.assetCategory}
                   ></textarea>
                 </Form.Field>
                 <Form.Field>
@@ -129,7 +129,7 @@ const NewPage = (): JSX.Element => {
                     rows={3}
                     placeholder="Write a Details"
                     onChange={handleChange}
-                    value={task.assetDetails}
+                    value={asset.assetDetails}
                   ></textarea>
                 </Form.Field>
                 <Form.Field>
@@ -140,7 +140,7 @@ const NewPage = (): JSX.Element => {
                     rows={4}
                     placeholder="Write a Quantity"
                     onChange={handleChange}
-                    value={task.assetQuantity}
+                    value={asset.assetQuantity}
                   ></textarea>
                 </Form.Field>
                 <Form.Field>
@@ -151,7 +151,7 @@ const NewPage = (): JSX.Element => {
                     rows={5}
                     placeholder="Write a Price"
                     onChange={handleChange}
-                    value={task.assetPrice}
+                    value={asset.assetPrice}
                   ></textarea>
                 </Form.Field>
                 <Form.Field>
@@ -162,7 +162,7 @@ const NewPage = (): JSX.Element => {
                     rows={6}
                     placeholder="Write a Total"
                     onChange={handleChange}
-                    value={task.assetTotal}
+                    value={asset.assetTotal}
                   ></textarea>
                 </Form.Field>
                 {router.query.id ? (
@@ -190,8 +190,8 @@ const NewPage = (): JSX.Element => {
       </Grid>
 
       <Confirm
-        header="Delete a Task"
-        content={`Are you sure you want to delete task ${router.query.id}`}
+        header="Delete an Asset"
+        content={`Are you sure you want to delete asset ${router.query.id}`}
         open={openConfirm}
         onCancel={() => setOpenConfirm(false)}
         onConfirm={() =>

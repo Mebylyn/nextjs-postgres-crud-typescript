@@ -1,4 +1,4 @@
-@api = http://127.0.0.1:9000/assets/
+@api = https://assetapirubianes.azurewebsites.net/assets/
 
 ### Get all tasks
 GET {{api}}
