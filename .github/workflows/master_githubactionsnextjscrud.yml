@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'githubactionsnextjsCRUD'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_149E23BF6F734DC38987F8BD768921B3 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B0E6619A3C5F41E4AAE55DD22087A094 }}
           package: .
