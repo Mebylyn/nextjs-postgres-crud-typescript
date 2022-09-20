@@ -46,7 +46,7 @@ const Home = ({ assets }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await fetch("https://assetapirubianes.azurewebsites.net/assets/");
+  const res = await fetch("https://githubactionsnextjsapi.azurewebsites.net/assets/");
   const assets = await res.json();
 
   return {

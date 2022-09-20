@@ -22,7 +22,7 @@ const NewPage = (): JSX.Element => {
   const router = useRouter();
 
   const createAsset = async (asset: Asset) =>
-    await fetch("https://assetapirubianes.azurewebsites.net/assets/", {
+    await fetch("https://githubactionsnextjsapi.azurewebsites.net/assets/", {
       method: "POST",
       body: JSON.stringify(asset),
       headers: {
@@ -31,7 +31,7 @@ const NewPage = (): JSX.Element => {
     });
 
   const updateAsset = async (id: string, asset: Asset) =>
-    await fetch("https://assetapirubianes.azurewebsites.net/assets/" + id, {
+    await fetch("https://githubactionsnextjsapi.azurewebsites.net/assets/" + id, {
       method: "PUT",
       body: JSON.stringify(asset),
       headers: {
@@ -61,7 +61,7 @@ const NewPage = (): JSX.Element => {
     setAsset({ ...asset, [name]: value });
 
   const loadAsset = async (id: string) => {
-    const res = await fetch("https://assetapirubianes.azurewebsites.net/assets/" + id);
+    const res = await fetch("https://githubactionsnextjsapi.azurewebsites.net/assets/" + id);
     const asset = await res.json();
     setAsset({ 
               assetName: asset.assetName,
@@ -74,7 +74,7 @@ const NewPage = (): JSX.Element => {
 
   const handleDelete = async (id: string) => {
     try {
-      const res = await fetch("https://assetapirubianes.azurewebsites.net/assets/" + id, {
+      const res = await fetch("https://githubactionsnextjsapi.azurewebsites.net/assets/" + id, {
         method: "DELETE",
       });
       router.push("/");
@@ -89,115 +89,74 @@ const NewPage = (): JSX.Element => {
 
   return (
     <Layout>
-      <Grid
-        centered
-        columns={3}
-        verticalAlign="middle"
-        style={{ height: "70%" }}
-      >
+      <Grid>
         <Grid.Column>
-          <Card>
-            <Card.Content>
-              <Form onSubmit={handleSubmit}>
-                <Form.Field>
-                  <label htmlFor="assetname">Asset Name</label>
-                  <input
-                    type="text"
-                    placeholder="Write Asset Name"
-                    name="assetName"
-                    onChange={handleChange}
-                    value={asset.assetName}
-                    autoFocus
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label htmlFor="description">Category</label>
-                  <textarea
-                    name="assetCategory"
-                    id="description"
-                    rows={2}
-                    placeholder="Write a Description"
-                    onChange={handleChange}
-                    value={asset.assetCategory}
-                  ></textarea>
-                </Form.Field>
-                <Form.Field>
-                  <label htmlFor="assetdetails">Details</label>
-                  <textarea
-                    name="assetDetails"
-                    id="assetdetails"
-                    rows={3}
-                    placeholder="Write a Details"
-                    onChange={handleChange}
-                    value={asset.assetDetails}
-                  ></textarea>
-                </Form.Field>
-                <Form.Field>
-                  <label htmlFor="assetquantity">Quantity</label>
-                  <textarea
-                    name="assetQuantity"
-                    id="assetquantity"
-                    rows={4}
-                    placeholder="Write a Quantity"
-                    onChange={handleChange}
-                    value={asset.assetQuantity}
-                  ></textarea>
-                </Form.Field>
-                <Form.Field>
-                  <label htmlFor="assetprice">Price</label>
-                  <textarea
-                    name="assetPrice"
-                    id="assetprice"
-                    rows={5}
-                    placeholder="Write a Price"
-                    onChange={handleChange}
-                    value={asset.assetPrice}
-                  ></textarea>
-                </Form.Field>
-                <Form.Field>
-                  <label htmlFor="assettotal">Total</label>
-                  <textarea
-                    name="assetTotal"
-                    id="assettotal"
-                    rows={6}
-                    placeholder="Write a Total"
-                    onChange={handleChange}
-                    value={asset.assetTotal}
-                  ></textarea>
-                </Form.Field>
-                {router.query.id ? (
-                  <Button color="teal" loading={loading}>
-                    <Icon name="save" />
-                    Update
-                  </Button>
-                ) : (
-                  <Button primary loading={loading}>
-                    <Icon name="save" />
-                    Save
-                  </Button>
-                )}
-              </Form>
-            </Card.Content>
-          </Card>
+        <form onSubmit={handleSubmit} className="ui form">
+          <h4 className="ui dividing header">Asset</h4>
+          <div className="two fields">
+            <div className="field">
+            <label>Asset Name</label>
+              <input type="text" name="assetName" placeholder="Input Asset Name" onChange={handleChange} value={asset.assetName}/>
+            </div>
+            <div className="field">
+            <label>Category</label>
+              <input type="text" name="assetCategory" placeholder="Category" onChange={handleChange} value={asset.assetCategory}/>
+            </div>
+          </div>
 
-          {router.query.id && (
-            <Button inverted color="red" onClick={() => setOpenConfirm(true)}>
-              <Icon name="trash" />
-              Delete
-            </Button>
-          )}
-        </Grid.Column>
-      </Grid>
+          <div className="field">
+            <label>Details</label>
+            <textarea name="assetDetails" onChange={handleChange} value={asset.assetDetails} />
+          </div>
 
-      <Confirm
-        header="Delete an Asset"
-        content={`Are you sure you want to delete asset ${router.query.id}`}
-        open={openConfirm}
-        onCancel={() => setOpenConfirm(false)}
-        onConfirm={() =>
-          typeof router.query.id === "string" && handleDelete(router.query.id)
-        }
-      />
+          <div className="fields">
+            <div className="six wide field">
+              <label>Quantity</label>
+              <input type="text" name="assetQuantity" placeholder="Input Quantity" onChange={handleChange} value={asset.assetQuantity}/>
+            </div>
+            <div className="six wide field">
+              <label>Price</label>
+              <input type="text" name="assetPrice" placeholder="Input Price" onChange={handleChange} value={asset.assetPrice}/>
+            </div>
+
+            <div className="six wide field">
+              <label>Total</label>
+              <input type="text" name="assetTotal" placeholder="Input Total" onChange={handleChange} value={asset.assetTotal}/>
+            </div>
+          </div>
+                      {router.query.id ? (
+                        <Button color="teal" loading={loading}>
+                          <Icon name="save" />
+                          Update
+                        </Button>
+                      ) : (
+                        <Button primary loading={loading}>
+                          <Icon name="save" />
+                          Save
+                        </Button>
+                      )}
+                        
+        </form>
+
+                      {router.query.id && (
+                        <Button inverted color="red" onClick={() => setOpenConfirm(true)}>
+                          <Icon name="trash" />
+                          Delete
+                        </Button>
+                      )}
+
+                      <Confirm
+                        header="Delete an Asset"
+                        content={`Are you sure you want to delete asset ${router.query.id}`}
+                        open={openConfirm}
+                        onCancel={() => setOpenConfirm(false)}
+                        onConfirm={() =>
+                          typeof router.query.id === "string" && handleDelete(router.query.id)
+                        }
+                      />
+                      </Grid.Column>
+                  </Grid>
+        
     </Layout>
   );
 };

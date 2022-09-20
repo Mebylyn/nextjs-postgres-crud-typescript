@@ -1,4 +1,4 @@
-@api = https://assetapirubianes.azurewebsites.net/assets/
+@api = https://githubactionsnextjsapi.azurewebsites.net/assets/
 
 ### Get all tasks
 GET {{api}}
